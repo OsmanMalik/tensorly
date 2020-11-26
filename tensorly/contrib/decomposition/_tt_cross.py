@@ -183,12 +183,13 @@ def tensor_train_cross(input_tensor, rank, tol=1e-4, n_iter_max=100):
         # check the error for while-loop
         error = tl.norm(tt_to_tensor(factor_old) - tt_to_tensor(factor_new), 2)
         threshold = tol * tl.norm(tt_to_tensor(factor_new), 2)
+        print("It: " + str(iter) + "; error: " + str(error) + "; threshold: " + str(threshold))
 
     # check convergence
     if iter >= n_iter_max:
-        raise ValueError('Maximum number of iterations reached.')
+        print('Maximum number of iterations reached.')
     if tl.norm(tt_to_tensor(factor_old) - tt_to_tensor(factor_new), 2) > tol * tl.norm(tt_to_tensor(factor_new), 2):
-        raise ValueError('Low Rank Approximation algorithm did not converge.')
+        print('Low Rank Approximation algorithm did not converge.')
 
     return factor_new
 
